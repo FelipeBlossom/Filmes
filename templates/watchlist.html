@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Minha Lista - Watchlist{% endblock %}
+
+{% block content %}
+<h2>Sua Lista de Filmes para Assistir</h2>
+
+{% if not filmes %}
+    <div>
+        <p>Sua watchlist está vazia. Volte para a aba de <a href="{{ url_for('filmes') }}">Filmes</a> e adicione alguns!</p>
+    </div>
+{% else %}
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Ano</th>
+                <th>Duração</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for filme in filmes %}
+                <tr>
+                    <td><strong>{{ filme.titulo }}</strong></td>
+                    <td>{{ filme.ano }}</td>
+                    <td>{{ filme.duracao }} min</td>
+                    <td>
+                        <form action="{{ url_for('remover', filme_id=filme.id) }}" method="post">
+                            <button type="submit">Remover</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <strong>Tempo total de reprodução:</strong> {{ duracao_total }} minutos
+    </div>
+{% endif %}
+{% endblock %}
