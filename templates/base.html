@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Minha Watchlist{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <navbar>
+            <a href="/filmes">Filmes</a>
+            <a href="/assistir">Watchlist {{ session.get('watchlist', []) | length }}</a> 
+        </navbar>
+    </header>
+</body>
+</html>
