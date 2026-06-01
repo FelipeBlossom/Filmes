@@ -1,16 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Minha Watchlist{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 </head>
 <body>
+
     <header>
-        <navbar>
-            <a href="/filmes">Filmes</a>
-            <a href="/assistir">Watchlist {{ session.get('watchlist', []) | length }}</a> 
-        </navbar>
+        <h1>Cinema</h1>
+        <nav>
+            <a href="{{ url_for('filmes') }}">Filmes</a> | 
+            <a href="{{ url_for('watchlist') }}">Watchlist ({{ session.get('watchlist', []) | length }})</a>
+        </nav>
     </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="flash {{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
 </body>
 </html>
